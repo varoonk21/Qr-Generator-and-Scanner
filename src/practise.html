@@ -30,7 +30,12 @@ function generateQRCode() {
         imageOptions: {
             crossOrigin: "anonymous",
             margin: 10
+        },
+        cornersDotOptions: {
+            type:"Dot",
+            color:"#000000"
         }
+
     });
     qrCode.append(document.getElementById("canvas"));
 }

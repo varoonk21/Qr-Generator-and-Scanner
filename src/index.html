@@ -3,53 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <title>QR Code Styling</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
 </head>
-<body>
-    <div class="main-container ">
-        <div id="logo">
-            <img>
+<body class=" bg-blue-500 text-white font-Inter">
+    <div class="main-container flex items-center justify-center flex-col mt-4">
+        <div id="logo" class="w-8 h-8 bg-white/10 backdrop-blur-md rounded-2xl shadow-lg flex items-center justify-center text-white text-2xl">
+            <img class="w-4 h-4" fill="white"  src="/Assets/Main-icon.svg">
         </div>
-        <div id="headings">
-            <h1></h1>
-            <p></p>
+        <div class="flex flex-col items-center" id="headings">
+            <h1 class="font-extrabold">Qr Hub</h1>
+            <p>Generate and Scan Qr Codes with ease</p>
         </div>
         <nav>
-            <button>Generate</button>
-            <button>Scan</button>
+            <button>Generator</button>
+            <button>Scanner</button>
         </nav>
         <main>
             <div id="left">
-                
-                <p>Enter text or URL to generate QR code</p>
-                <textarea placeholder="Type your text,URL, or messages here..."></textarea>
-                <span id="text-count">0/2000</span
-                
-            <div id="options">  
-            <p><img id="paint-icon"> Customization</p>
-            <div>
-                <span>Error Correction</span>
-                <select>
-                    <option value="very-low">Very Low</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
-            <div>
-                <span>Dark color</span>
-                <input type="color">
-            </div>
-            <div>
-                <span>light color</span>
-                <input type="color">
-            </div>
-            </div>
-            </div>
+                <div id="input-container">
+                    <p>Enter text or URL to generate QR code</p>
+                    <textarea placeholder="Type your text,URL, or messages here..."></textarea>
+                    <span id="text-count">0/2000</span>
+                </div>                
+                <div id="options">  
+                <p><img id="paint-icon"> Customization</p>
+                <div>
+                    <span>Size</span>
+                    <input type="range">
+                </div>
+                <div>
+                    <span>Error Correction</span>
+                    <select>
+                        <option value="very-low">Very Low</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div>
+                    <span>Dark color</span>
+                    <input type="color">
+                </div>
+                <div>
+                    <span>light color</span>
+                    <input type="color">
+                </div>
+                <div>
+                    <span>Background color</span>
+                    <input type="color">
+                </div>
+                <div>
+                    <span>Add logo</span>
+                    <input type="file">
+                </div>
+                <div>
+                    <span>logo Margin</span>
+                    <input type="number">
+                </div>
+                <div>
+                    <span>Dots Style</span>
+                    <select>
+                        <option value="Square">Square</option>
+                        <option value="Dots">Dots</option>
+                        <option value="Rounded">Rounded</option>
+                        <option value="Extra rounded">Extra rounded</option>
+                        <option value="Classy">Classy</option>
+                        <option value="Classy rounded"> Classy rounded</option>
+                    </select>
+                </div>
+                <div>
+                    <span>Dots Color</span>
+                    <input type="color">
+                </div>
 
-    
+                </div>
+            </div>
             <div id="ryt">
-
+                <div class="bg-white">
+                    <div class="placeholder"></div>
+                    
+                </div>
+                <div>
+                    <select>
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="svg">SVG</option>
+                    </select>
+                    <button>Download</button>
+                </div>
             </div>
         </main>
     </div>
