@@ -45,7 +45,7 @@
         </nav>
 
         <!-- main containner -->
-        <main class="m-6 p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-md flex items-center justify-between">
+        <main class="m-6 p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-md flex flex-col items-center justify-between md:flex-row">
             <div id="left">
                 <div id="input-container">
                     <p>Enter text or URL to generate QR code</p>
@@ -105,18 +105,20 @@
 
                 </div>
             </div>
-            <div id="ryt">
-                <div class="bg-white">
-                    <div class="placeholder"></div>
+            <div id="ryt" class="pt-4 md:pt-0 flex flex-col items-center">
+                <div class="bg-white w-60 h-60 rounded-2xl mb-4">
+                    <div class="object-fill placeholder flex items-center justify-center p-4">
+                        <img src="/Assets/ExampleCode.png">
+                    </div>
                     
                 </div>
                 <div>
-                    <select>
+                    <select  class="bg-white text-black rounded-md px-4 py-2 mr-1 cursor-pointer">
                         <option value="png">PNG</option>
                         <option value="jpeg">JPEG</option>
                         <option value="svg">SVG</option>
                     </select>
-                    <button>Download</button>
+                    <button class="bg-white text-black rounded-md px-4 py-2 mr-2.5 cursor-pointer ">Download</button>
                 </div>
             </div>
         </main>
