@@ -45,51 +45,89 @@
         </nav>
 
         <!-- main containner -->
-        <main class="m-6 p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-md flex flex-col items-center justify-between md:flex-row">
+        <main class=" m-6 p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-md flex flex-col items-center justify-between md:flex-row md:gap-8">
             <div id="left">
-                <div id="input-container">
+                <div id="input-container" class="mb-4 md:mb-0">
                     <p class="text-sm font-medium mb-2">Enter text or URL to generate QR code</p>
                     <textarea class="w-full max-w-md h-32 p-3 bg-white/10 border-white/30 border rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Type your text, URL, or messages here..."></textarea>
                     <span class="text-xs opacity-60" id="text-count">0/2000</span>
-                </div>                
-                <div id="options">  
-                <p><img id="paint-icon"> Customization</p>
-                <div>
-                    <span>Size</span>
-                    <input type="range">
                 </div>
                 <div>
-                    <span>Error Correction</span>
-                    <select>
+                    <p class="text-lg font-medium mt-4 flex gap-1 items-center">
+                <svg class="w-4 h-4"  fill="currentColor" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <g>
+                    <g>
+                    <path d="M491.124,328.439c-10.233-17.742-28.904-27.917-51.222-27.917c-23.642,0-44.048-15.853-47.467-36.875 
+                    c-2.178-13.394,1.372-26.356,9.997-36.497c8.471-9.96,20.826-15.672,33.898-15.672c24.545,0,44.564-10.327,54.924-28.333 
+                    c9.795-17.025,9.639-38.337-0.407-55.617C445.136,48.867,360.274,0,269.38,0c-61.683,0-118.886,20.734-165.427,59.962 
+                    c-44.305,37.343-74.709,88.804-85.609,144.903c-14.896,76.663,4.627,154.677,53.563,214.037 
+                    C120.683,478.067,192.656,512,269.374,512c91.108,0,176.073-49.044,221.739-127.993 
+                    C501.016,366.89,501.02,345.598,491.124,328.439z M85.722,256c0-27.618,22.469-50.087,50.087-50.087 
+                    c27.618,0,50.087,22.469,50.087,50.087c0,27.618-22.469,50.087-50.087,50.087C108.191,306.087,85.722,283.618,85.722,256z 
+                    M245.968,396.714c-9.266,16.049-26.139,25.033-43.461,25.033c-8.493,0-17.091-2.158-24.96-6.702 
+                    c-11.587-6.689-19.873-17.49-23.337-30.413c-3.463-12.922-1.685-26.42,5.004-38.007c6.689-11.586,17.489-19.873,30.413-23.336 
+                    c12.922-3.462,26.42-1.685,38.006,5.004C251.552,342.103,259.776,372.796,245.968,396.714z M227.635,183.706 
+                    c-7.717,4.456-16.283,6.732-24.962,6.733c-4.351,0-8.73-0.572-13.045-1.729c-12.922-3.463-23.723-11.75-30.413-23.337 
+                    s-8.467-25.085-5.004-38.007c3.463-12.922,11.75-23.723,23.337-30.413c11.587-6.69,25.086-8.467,38.007-5.004 
+                    c12.922,3.463,23.723,11.75,30.414,23.337C259.776,139.204,251.552,169.897,227.635,183.706z M292.78,115.286 
+                    c6.689-11.586,17.489-19.873,30.413-23.336c12.924-3.462,26.42-1.685,38.006,5.004c23.918,13.808,32.141,44.502,18.334,68.42 
+                    c-6.689,11.587-17.49,19.873-30.413,23.337c-4.314,1.156-8.695,1.729-13.045,1.729c-8.68,0-17.244-2.276-24.962-6.733 
+                    c-11.586-6.689-19.873-17.49-23.336-30.413C284.313,140.369,286.091,126.871,292.78,115.286z M361.2,415.047 
+                    c-7.867,4.542-16.469,6.701-24.959,6.701c-17.325,0-34.194-8.982-43.46-25.033c-6.689-11.587-8.467-25.085-5.004-38.007 
+                    c3.463-12.922,11.75-23.723,23.337-30.413c11.587-6.69,25.086-8.468,38.007-5.004c12.922,3.463,23.723,11.75,30.414,23.337 
+                    C393.342,370.546,385.117,401.239,361.2,415.047z"></path>
+                </g>
+                </g>
+            </g>
+            </svg>
+            Customization</p>
+                </div>                
+                <div id="options" class="bg-white/10 px-4 py-2 mt-3 rounded-2xl border border-white/30">  
+                <div class="flex gap-2 items-center mb-2.5">
+                    <span class="font-bold text-lg">Size</span>
+                    <select class="bg-white border border-gray-300 text-sky-900 font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 block w-full p-1">
+                        <option value="16px">32px</option>
+                        <option value="32px">16px</option>
+                        <option value="64px">64px</option>
+                        <option value="128px">128px</option>
+                    </select>
+                </div>    
+                <div class="flex gap-2 items-center mb-2.5">
+                    <span class="font-bold whitespace-nowrap text-md">Error Correction</span>
+                    <select class="bg-white border border-gray-300 text-sky-900 font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 w-full p-1">
                         <option value="very-low">Very Low</option>
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
                 </div>
-                <div>
-                    <span>Dark color</span>
-                    <input type="color">
+                <div class="flex gap-2 items-center mb-2.5">
+                    <span class="font-bold text-md whitespace-nowrap">Dark Color</span>
+                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
                 </div>
-                <div>
-                    <span>light color</span>
-                    <input type="color">
+                <div class="flex gap-2 items-center mb-2.5">
+                    <span class="font-bold text-md whitespace-nowrap">light Color</span>
+                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
                 </div>
-                <div>
-                    <span>Background color</span>
-                    <input type="color">
+                <div class="flex gap-2 items-center mb-2">
+                    <span class="font-bold text-md whitespace-nowrap">Background Color</span>
+                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
                 </div>
-                <div>
-                    <span>Add logo</span>
-                    <input type="file">
+                <div class="mb-2.5">          
+                <label class="block mb-1 text-md font-medium text-gray-900 dark:text-white" for="file_input">Upload Logo</label>
+                <input class="block w-full text-sm text-gray-900 rounded-sm  bg-white file:cursor-pointer file:bg-blue-500 file:text-white file:p-2 focus:outline-none" id="file_input" type="file">
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG or JPG (MAX. 800x400px).</p>
                 </div>
-                <div>
-                    <span>logo Margin</span>
-                    <input type="number">
+                <div class="mb-2.5">
+                    <label class="block mb-2 text-md font-medium text-gray-900 dark:text-white" for="file_input">Logo Margin</label>
+                    <input class="bg-white/10 border border-gray-300 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 block w-full p-1" type="number">
                 </div>
-                <div>
-                    <span>Dots Style</span>
-                    <select>
+                <div class="flex items-center gap-2 mb-2.5">
+                    <span class="font-bold text-md whitespace-nowrap">Dots Style</span>
+                    <select class="bg-white border border-gray-300 text-sky-900 font-medium rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500 block w-full p-1">
                         <option value="Square">Square</option>
                         <option value="Dots">Dots</option>
                         <option value="Rounded">Rounded</option>
@@ -98,9 +136,9 @@
                         <option value="Classy rounded"> Classy rounded</option>
                     </select>
                 </div>
-                <div>
-                    <span>Dots Color</span>
-                    <input type="color">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-md whitespace-nowrap">Dots Color</span>
+                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
                 </div>
 
                 </div>
@@ -113,12 +151,12 @@
                     
                 </div>
                 <div>
-                    <select  class="bg-white text-black rounded-md px-4 py-2 mr-1 cursor-pointer">
+                    <select  class="bg-white text-sky-900 font-bold rounded-md px-4 py-2 mr-1 focus:outline-none cursor-pointer">
                         <option value="png">PNG</option>
                         <option value="jpeg">JPEG</option>
                         <option value="svg">SVG</option>
                     </select>
-                    <button class="bg-white text-black rounded-md px-4 py-2 mr-2.5 cursor-pointer ">Download</button>
+                    <button class="bg-white text-blue-900 font-bold hover:bg-blue-800 hover:text-white rounded-md px-4 py-2 mr-2.5 cursor-pointer ">Download</button>
                 </div>
             </div>
         </main>
