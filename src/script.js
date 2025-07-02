@@ -10,8 +10,8 @@ let extensionSelector = document.getElementById('extension-selector');
 let downloadBtn = document.getElementById('download-btn');
 let logoInput = document.getElementById('file_input');
 let clearBtn = document.getElementById('clear-btn');
-
-
+let logoMarginInput = document.getElementById('logo-margin-input');
+let marginInput = document.getElementById('margin-input');
 
 const updateCounter = debounce((text) => {
   textCount.innerText = `${text.length}/2000`;
@@ -23,7 +23,7 @@ const qrCode = new QRCodeStyling({
       height: 300,
       type: "canvas", // or "svg"
       data: "https://example.com",
-      image: "/Assets/ExampleCode.png", //logo
+      image: "", //logo
       margin: 10, 
       dotsOptions: {
         color: "#000",
@@ -45,11 +45,19 @@ const qrCode = new QRCodeStyling({
 
 
 widthInput.addEventListener("input", (e)=>{
-qrCode.update({width: e.target.value})
+  let  width = e.target.value;
+  if (!width) {
+    width = 300;
+  }
+qrCode.update({width: width})
 });
 
  heightInput.addEventListener("input", (e)=>{
-qrCode.update({height: e.target.value})
+let  height = e.target.value;
+  if (!height) {
+    height = 300;
+  }
+qrCode.update({height: height})
 });
 
 bgColor.addEventListener("input", (e)=>{
@@ -77,9 +85,21 @@ logoInput.addEventListener('change', function (event) {
     }
   });
 
+logoMarginInput.addEventListener("input", (e)=>{
+ qrCode.update({imageOptions: { margin : `${e.target.value}`}});
+});
+marginInput.addEventListener("input", (e)=>{
+  let  margin = e.target.value;
+  if (!margin) {
+    margin = 10;
+  }
+ qrCode.update({margin : `${margin}`});
+});
+
 clearBtn.addEventListener('click', (e)=>{
   logoInput.value = "";
  qrCode.update({image: ""})
+ clearBtn.classList.add("hidden");
 });
 
 
