@@ -70,11 +70,7 @@ dotsStyleSelector.addEventListener('change', (e)=>{
 logoInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
     if (file) {
-      console.log(file);
-      
-      console.log('Selected image:', file.name);
-      // You can also show preview:
-      
+      clearBtn.classList.remove("hidden");
       const imgURL = URL.createObjectURL(file);
       console.log('Image URL:', imgURL);
       qrCode.update({image: imgURL})
