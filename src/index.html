@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    
 </head>
 <body class="min-h-screen w-full bg-gradient-to-r from-sky-700 to-indigo-900 text-white font-Inter ">
     <div class="main-container flex items-center justify-center flex-col mt-8 px-4 sm:px-6">
@@ -44,14 +44,15 @@
                 </button>
         </nav>
 
-        <!-- main containner -->
+        <!-- generate containner -->
         <main class=" m-6 p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-md flex flex-col items-center justify-between md:flex-row md:gap-8">
             <div id="left">
                 <div id="input-container" class="mb-4 md:mb-0">
                     <p class="text-sm font-medium mb-2">Enter text or URL to generate QR code</p>
-                    <textarea class="w-full max-w-md h-32 p-3 bg-white/10 border-white/30 border rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Type your text, URL, or messages here..."></textarea>
-                    <span class="text-xs opacity-60" id="text-count">0/2000</span>
+                    <textarea id="textInput" class="w-full max-w-md h-32 p-3 bg-white/10 border-white/30 border rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Type your text, URL, or messages here..."></textarea>
+                    <span class="text-xs opacity-60" id="textCount">0/2000</span>
                 </div>
+
                 <div>
                     <p class="text-lg font-medium mt-4 flex gap-1 items-center">
                 <svg class="w-4 h-4"  fill="currentColor" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
@@ -84,83 +85,82 @@
             </g>
             </svg>
             Customization</p>
-                </div>                
-                <div id="options" class="bg-white/10 px-4 py-2 mt-3 rounded-2xl border border-white/30">  
-                <div class="flex gap-2 items-center mb-2.5">
-                    <span class="font-bold text-lg">Size</span>
-                    <select class="bg-white border border-gray-300 text-sky-900 font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 block w-full p-1">
-                        <option value="16px">32px</option>
-                        <option value="32px">16px</option>
-                        <option value="64px">64px</option>
-                        <option value="128px">128px</option>
-                    </select>
-                </div>    
-                <div class="flex gap-2 items-center mb-2.5">
-                    <span class="font-bold whitespace-nowrap text-md">Error Correction</span>
-                    <select class="bg-white border border-gray-300 text-sky-900 font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 w-full p-1">
-                        <option value="very-low">Very Low</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                </div>
-                <div class="flex gap-2 items-center mb-2.5">
-                    <span class="font-bold text-md whitespace-nowrap">Dark Color</span>
-                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
-                </div>
-                <div class="flex gap-2 items-center mb-2.5">
-                    <span class="font-bold text-md whitespace-nowrap">light Color</span>
-                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
-                </div>
-                <div class="flex gap-2 items-center mb-2">
-                    <span class="font-bold text-md whitespace-nowrap">Background Color</span>
-                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
-                </div>
-                <div class="mb-2.5">          
-                <label class="block mb-1 text-md font-medium text-gray-900 dark:text-white" for="file_input">Upload Logo</label>
-                <input class="block w-full text-sm text-gray-900 rounded-sm  bg-white file:cursor-pointer file:bg-blue-500 file:text-white file:p-2 focus:outline-none" id="file_input" type="file">
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG or JPG (MAX. 800x400px).</p>
-                </div>
-                <div class="mb-2.5">
-                    <label class="block mb-2 text-md font-medium text-gray-900 dark:text-white" for="file_input">Logo Margin</label>
-                    <input class="bg-white/10 border border-gray-300 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 block w-full p-1" type="number">
-                </div>
-                <div class="flex items-center gap-2 mb-2.5">
-                    <span class="font-bold text-md whitespace-nowrap">Dots Style</span>
-                    <select class="bg-white border border-gray-300 text-sky-900 font-medium rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500 block w-full p-1">
-                        <option value="Square">Square</option>
-                        <option value="Dots">Dots</option>
-                        <option value="Rounded">Rounded</option>
-                        <option value="Extra rounded">Extra rounded</option>
-                        <option value="Classy">Classy</option>
-                        <option value="Classy rounded"> Classy rounded</option>
-                    </select>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="font-bold text-md whitespace-nowrap">Dots Color</span>
-                    <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
                 </div>
 
+                <div id="options" class="bg-white/10 px-4 py-2 mt-3 rounded-2xl border border-white/30">  
+                    <div class="mb-2.5 flex gap-2 items-center ">
+                        <label class=" text-md font-medium text-gray-900 dark:text-white" >Width</label>
+                        <input class="bg-white/10 border border-gray-300 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 block w-full p-1" id="widthInput" type="number">
+                    </div> 
+                    <div class="mb-2.5 flex gap-2 items-center ">
+                        <label class=" text-md font-medium text-gray-900 dark:text-white">Height</label>
+                        <input class="bg-white/10 border border-gray-300 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 block w-full p-1" id="heightInput" type="number">
+                    </div>
+                    <div class="flex gap-2 items-center mb-2">
+                        <span class="font-bold text-md whitespace-nowrap">Background Color</span>
+                        <input id="bg-color-input" class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color" value="#ffffff">
+                    </div>    
+                    <div class="flex gap-2 items-center mb-2.5">
+                        <span class="font-bold whitespace-nowrap text-md">Error Correction</span>
+                        <select id="errorSelector" class="bg-white border border-gray-300 text-sky-900 font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 w-full p-1 cursor-pointer">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="highest">Highest</option>
+                        </select>
+                    </div>
+                    <div class="flex gap-2 items-center mb-2.5">
+                        <span class="font-bold text-md whitespace-nowrap">light Color</span>
+                        <input class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
+                    </div>
+                    <div class="mb-2.5">          
+                    <label class="block mb-1 text-md font-medium text-gray-900 dark:text-white" for="file_input">Upload Logo</label>
+                    <input class="block w-full text-sm text-gray-900 rounded-sm  bg-white file:cursor-pointer file:bg-blue-500 file:text-white file:p-2 focus:outline-none" id="file_input" accept="image/*" type="file">
+                    <button id="clear-btn" class="bg-white text-blue-900 font-bold hover:bg-blue-800 hover:text-white rounded-md px-4 py-2 mr-2.5 cursor-pointer ">Clear</button>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG or JPG (MAX. 800x800px).</p>
+                    
+                    <div class="mb-2.5">
+                        <label class="block mb-2 text-md font-medium text-gray-900 dark:text-white" for="file_input">Logo Margin</label>
+                        <input class="bg-white/10 border border-gray-300 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 block w-full p-1" type="number">
+                    </div>
+                    <div class="flex items-center gap-2 mb-2.5">
+                        <span class="font-bold text-md whitespace-nowrap">Dots Style</span>
+                        <select id="dots-style-selector" class="bg-white border border-gray-300 text-sky-900 font-medium rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500 block w-full p-1">
+                            <option value="square">Square</option>
+                            <option value="dots">Dots</option>
+                            <option value="rounded">Rounded</option>
+                            <option value="classy">Classy</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-md whitespace-nowrap">Dots Color</span>
+                        <input id="dots-color-input" class="w-full block bg-white border border-gray-200 cursor-pointer rounded-sm" type="color">
+                    </div>
                 </div>
             </div>
+
             <div id="ryt" class="pt-4 md:pt-0 flex flex-col items-center">
-                <div class="bg-white w-60 h-60 rounded-2xl mb-4">
-                    <div class="object-fill placeholder flex items-center justify-center p-4">
-                        <img src="/Assets/ExampleCode.png">
+
+                <!-- Qr placeholder -->
+                <div class="bg-white  rounded-2xl mb-4 ">
+                    <div id="canvas" class="object-contain placeholder flex items-center justify-center rounded-2xl p-1">
+                    
                     </div>
                     
                 </div>
                 <div>
-                    <select  class="bg-white text-sky-900 font-bold rounded-md px-4 py-2 mr-1 focus:outline-none cursor-pointer">
+                    <select id="extension-selector"  class="bg-white text-sky-900 font-bold rounded-md px-4 py-2 mr-1 focus:outline-none cursor-pointer">
                         <option value="png">PNG</option>
-                        <option value="jpeg">JPEG</option>
+                        <option value="jpg">JPG</option>
                         <option value="svg">SVG</option>
                     </select>
-                    <button class="bg-white text-blue-900 font-bold hover:bg-blue-800 hover:text-white rounded-md px-4 py-2 mr-2.5 cursor-pointer ">Download</button>
+                    <button id="download-btn" class="bg-white text-blue-900 font-bold hover:bg-blue-800 hover:text-white rounded-md px-4 py-2 mr-2.5 cursor-pointer ">Download</button>
                 </div>
             </div>
         </main>
     </div>
-</script>
+<script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+<script src="/src/script.js"></script>
 </body>
 </html>
