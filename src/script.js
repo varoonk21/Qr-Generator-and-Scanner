@@ -12,6 +12,12 @@ let logoInput = document.getElementById('file_input');
 let clearBtn = document.getElementById('clear-btn');
 let logoMarginInput = document.getElementById('logo-margin-input');
 let marginInput = document.getElementById('margin-input');
+let typeNumberSelector = document.getElementById('type-number-selector');
+let modeSelector = document.getElementById('mode-selector');
+let advanceOptionsOpener = document.getElementById('advanceOptions-opener');
+let advanceOptionsCloser = document.getElementById('advanceOptions-closer');
+let advanceOptionsContainer = document.getElementById('AdvanceOptions-container');
+
 
 const updateCounter = debounce((text) => {
   textCount.innerText = `${text.length}/2000`;
@@ -36,7 +42,19 @@ const qrCode = new QRCodeStyling({
         crossOrigin: "anonymous",
         margin: 10
       },
-      
+      cornersDotOptions: {
+        color: "#A30000",
+        type: 'square'
+      },
+      cornersSquareOptions: {
+        color: "#A3B000",
+        type: 'square'
+      },
+      qrOptions: {
+        typeNumber: '',
+        mode: 'Byte', //'Numeric' 'Alphanumeric' 'Byte' 'Kanji'
+        errorCorrectionLevel: 'L'
+      },
     });
 
     qrCode.append(document.getElementById("canvas"));
@@ -61,29 +79,62 @@ qrCode.update({height: height})
 });
 
 bgColor.addEventListener("input", (e)=>{
-  console.log(e.target.value);
  qrCode.update({backgroundOptions: { color : `${e.target.value}`}});
 });
 
 dotsColor.addEventListener('input', (e)=>{
-  console.log(e.target.value);
  qrCode.update({dotsOptions: { color : `${e.target.value}`}});
 });
 
 dotsStyleSelector.addEventListener('change', (e)=>{
-  console.log(e.target.value);
  qrCode.update({dotsOptions: { type : `${e.target.value}`}});
 });
+
+
+
+advanceOptionsOpener.addEventListener('click', (e)=>{
+  advanceOptionsOpener.classList.add("hidden");
+  advanceOptionsCloser.classList.remove("hidden");
+  advanceOptionsContainer.classList.remove("hidden");
+});
+
+advanceOptionsCloser.addEventListener('click', (e)=>{
+  advanceOptionsCloser.classList.add("hidden");
+  advanceOptionsOpener.classList.remove("hidden");
+  advanceOptionsContainer.classList.add("hidden");
+});
+
+errorSelector.addEventListener('change', (e)=>{
+ qrCode.update({qrOptions: { errorCorrectionLevel : `${e.target.value}`}});
+});
+
+typeNumberSelector.addEventListener('change', (e)=>{
+ qrCode.update({qrOptions: { typeNumber : `${e.target.value}`}});
+});
+
+modeSelector.addEventListener('change', (e)=>{
+ qrCode.update({qrOptions: { mode : `${e.target.value}`}});
+});
+
+
 
 logoInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
     if (file) {
       clearBtn.classList.remove("hidden");
+      logoMarginInput.removeAttribute('disabled');
       const imgURL = URL.createObjectURL(file);
       console.log('Image URL:', imgURL);
       qrCode.update({image: imgURL})
     }
   });
+
+clearBtn.addEventListener('click', (e)=>{
+  logoInput.value = "";
+ qrCode.update({image: ""})
+ clearBtn.classList.add("hidden");
+ logoMarginInput.setAttribute('disabled', true);
+});
 
 logoMarginInput.addEventListener("input", (e)=>{
  qrCode.update({imageOptions: { margin : `${e.target.value}`}});
@@ -96,11 +147,7 @@ marginInput.addEventListener("input", (e)=>{
  qrCode.update({margin : `${margin}`});
 });
 
-clearBtn.addEventListener('click', (e)=>{
-  logoInput.value = "";
- qrCode.update({image: ""})
- clearBtn.classList.add("hidden");
-});
+
 
 
      // ✅ Debounce utility function
