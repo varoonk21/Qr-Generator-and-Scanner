@@ -20,6 +20,11 @@ let advanceOptionsContainer = document.getElementById('AdvanceOptions-container'
 let ImageOptionsOpener = document.getElementById('ImageOptions-opener');
 let ImageOptionsCloser = document.getElementById('ImageOptions-closer');
 let ImageOptionsContainer = document.getElementById('ImageOptions-container');
+let dotsOptionsOpener = document.getElementById('dotsOptions-opener');
+let dotsOptionsCloser = document.getElementById('dotsOptions-closer');
+let dotsOptionsContainer = document.getElementById('dotsOptions-container');
+
+
 
 const updateCounter = debounce((text) => {
   textCount.innerText = `${text.length}/2000`;
@@ -30,11 +35,11 @@ const qrCode = new QRCodeStyling({
       width: 300,
       height: 300,
       type: "canvas", // or "svg"
-      data: "https://example.com",
+      data: "https://github.com/varoonk21",
       image: "", //logo
       margin: 10, 
       dotsOptions: {
-        color: "#000",
+        color: "#000000",
         type: "square" // "rounded", "dots", "classy", "square", etc.
       },
       backgroundOptions: {
@@ -42,20 +47,12 @@ const qrCode = new QRCodeStyling({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 10
-      },
-      cornersDotOptions: {
-        color: "#000000",
-        type: 'square'
-      },
-      cornersSquareOptions: {
-        color: "#000000",
-        type: 'square'
+        margin: 10,
       },
       qrOptions: {
         typeNumber: '',
         mode: 'Byte', //'Numeric' 'Alphanumeric' 'Byte' 'Kanji'
-        errorCorrectionLevel: 'L'
+        errorCorrectionLevel: 'M'
       },
     });
 
@@ -84,6 +81,25 @@ bgColor.addEventListener("input", (e)=>{
  qrCode.update({backgroundOptions: { color : `${e.target.value}`}});
 });
 
+
+
+
+
+
+//Dots options:
+dotsOptionsOpener.addEventListener('click', (e)=>{
+  dotsOptionsOpener.classList.add("hidden");
+  dotsOptionsContainer.classList.add('grid', 'grid-cols-1', 'sm:grid-cols-2');
+  dotsOptionsCloser.classList.remove("hidden");
+  dotsOptionsContainer.classList.remove("hidden");
+});
+
+dotsOptionsCloser.addEventListener('click', (e)=>{
+  dotsOptionsCloser.classList.add("hidden");
+  dotsOptionsContainer.classList.remove('grid', 'grid-cols-1', 'sm:grid-cols-2');
+  dotsOptionsOpener.classList.remove("hidden");
+  dotsOptionsContainer.classList.add("hidden");
+});
 dotsColor.addEventListener('input', (e)=>{
  qrCode.update({dotsOptions: { color : `${e.target.value}`}});
 });
@@ -143,7 +159,6 @@ logoInput.addEventListener('change', function (event) {
       clearBtn.classList.remove("hidden");
       logoMarginInput.removeAttribute('disabled');
       const imgURL = URL.createObjectURL(file);
-      console.log('Image URL:', imgURL);
       qrCode.update({image: imgURL})
     }
   });
@@ -188,7 +203,11 @@ marginInput.addEventListener("input", (e)=>{
 
   // ✅ Add event listener once
   textInput.addEventListener("input", function (e) {
-    debouncedQr(e.target.value);
+    let  text = e.target.value;
+    if (!text) {
+    text = "https://github.com/varoonk21";
+    }
+    debouncedQr(text);
     updateCounter(e.target.value);
   });
 
