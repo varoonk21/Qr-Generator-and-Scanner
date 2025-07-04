@@ -17,7 +17,9 @@ let modeSelector = document.getElementById('mode-selector');
 let advanceOptionsOpener = document.getElementById('advanceOptions-opener');
 let advanceOptionsCloser = document.getElementById('advanceOptions-closer');
 let advanceOptionsContainer = document.getElementById('AdvanceOptions-container');
-
+let ImageOptionsOpener = document.getElementById('ImageOptions-opener');
+let ImageOptionsCloser = document.getElementById('ImageOptions-closer');
+let ImageOptionsContainer = document.getElementById('ImageOptions-container');
 
 const updateCounter = debounce((text) => {
   textCount.innerText = `${text.length}/2000`;
@@ -43,11 +45,11 @@ const qrCode = new QRCodeStyling({
         margin: 10
       },
       cornersDotOptions: {
-        color: "#A30000",
+        color: "#000000",
         type: 'square'
       },
       cornersSquareOptions: {
-        color: "#A3B000",
+        color: "#000000",
         type: 'square'
       },
       qrOptions: {
@@ -91,15 +93,17 @@ dotsStyleSelector.addEventListener('change', (e)=>{
 });
 
 
-
+//Advance options
 advanceOptionsOpener.addEventListener('click', (e)=>{
   advanceOptionsOpener.classList.add("hidden");
+  advanceOptionsContainer.classList.add('grid', 'grid-cols-1', 'sm:grid-cols-2');
   advanceOptionsCloser.classList.remove("hidden");
   advanceOptionsContainer.classList.remove("hidden");
 });
 
 advanceOptionsCloser.addEventListener('click', (e)=>{
   advanceOptionsCloser.classList.add("hidden");
+  advanceOptionsContainer.classList.remove('grid', 'grid-cols-1', 'sm:grid-cols-2');
   advanceOptionsOpener.classList.remove("hidden");
   advanceOptionsContainer.classList.add("hidden");
 });
@@ -117,6 +121,21 @@ modeSelector.addEventListener('change', (e)=>{
 });
 
 
+
+//image options
+ImageOptionsOpener.addEventListener('click', (e)=>{
+  ImageOptionsOpener.classList.add("hidden");
+  ImageOptionsContainer.classList.add('grid', 'grid-cols-1', 'sm:grid-cols-2');
+  ImageOptionsCloser.classList.remove("hidden");
+  ImageOptionsContainer.classList.remove("hidden");
+});
+
+ImageOptionsCloser.addEventListener('click', (e)=>{
+  ImageOptionsCloser.classList.add("hidden");
+  ImageOptionsContainer.classList.remove('grid', 'grid-cols-1', 'sm:grid-cols-2');
+  ImageOptionsOpener.classList.remove("hidden");
+  ImageOptionsContainer.classList.add("hidden");
+});
 
 logoInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
