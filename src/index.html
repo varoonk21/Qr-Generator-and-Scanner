@@ -512,7 +512,7 @@
 
         <!-- Scanner containner -->
         <main id="scanner-container"
-            class="m-4 p-4 sm:p-6 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 items-center gap-6 w-full max-w-7xl mx-auto hidden">
+            class="m-4 p-4 sm:p-6 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 items-center gap-6 mx-auto hidden">
             <div id="left-side" class=" flex flex-col items-center justify-center ">
                 <div class="text-center mb-2">
                     <h2 class="text-2xl font-bold mb-1">Scan QR Code</h2>
@@ -521,7 +521,7 @@
 
                 <!-- Camera Box -->
                 <div id="camera-box"
-                    class="w-full max-w-7xl min-w-xs aspect-square bg-black/30 rounded-2xl border-2 border-dashed border-white/20 flex items-center justify-center relative overflow-hidden backdrop-blur-sm">
+                    class="w-full max-w-7xl aspect-square bg-black/30 rounded-2xl border-2 border-dashed border-white/20 flex items-center justify-center relative overflow-hidden backdrop-blur-sm">
                     <div id="camera-placeholder" class="flex flex-col items-center justify-center text-gray-300 ">
                         <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -537,14 +537,14 @@
                     </div>
 
                     <!-- QR Scanner will replace this div -->
-                    <div id="reader" class="absolute inset-0 w-full h-full z-10 rounded-xl"></div>
+                    <div id="reader" class="absolute inset-0 z-10 w-full h-full rounded-xl"></div>
                 </div>
 
                 <!-- Buttons -->
                 <div class="flex flex-col sm:flex-row w-full gap-4 mt-4">
                     <button id="start-btn"
                         class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-2xl font-semibold text-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl flex items-center justify-center gap-1 transform hover:scale-105 cursor-pointer">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 1920 1920"
+                        <svg id="start-svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 1920 1920"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -554,10 +554,12 @@
                                     fill-rule="evenodd"></path>
                             </g>
                         </svg>
-                        Start Scan
+                        <svg id="stop-svg" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 21C10.22 21 8.47991 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89472 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17294C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36628 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C21 14.387 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.387 21 12 21ZM12 4.5C10.5166 4.5 9.0666 4.93987 7.83323 5.76398C6.59986 6.58809 5.63856 7.75943 5.07091 9.12988C4.50325 10.5003 4.35473 12.0083 4.64411 13.4632C4.9335 14.918 5.64781 16.2544 6.6967 17.3033C7.7456 18.3522 9.08197 19.0665 10.5368 19.3559C11.9917 19.6453 13.4997 19.4968 14.8701 18.9291C16.2406 18.3614 17.4119 17.4001 18.236 16.1668C19.0601 14.9334 19.5 13.4834 19.5 12C19.5 10.0109 18.7098 8.10323 17.3033 6.6967C15.8968 5.29018 13.9891 4.5 12 4.5Z" fill="currentColor"></path> <path d="M14.5 8H9.5C8.67157 8 8 8.67157 8 9.5V14.5C8 15.3284 8.67157 16 9.5 16H14.5C15.3284 16 16 15.3284 16 14.5V9.5C16 8.67157 15.3284 8 14.5 8Z" fill="currentColor"></path> </g></svg>
+                        <span>Start Scan</span>
                     </button>
-                    <button id="upload-btn"
-                        class=" bg-white/10 hover:bg-white/80 hover:text-purple-700 hover:scale-105 text-white px-3 py-3 rounded-xl transition-all duration-300 border border-white/20 flex items-center justify-between gap-1 cursor-pointer font-bold">
+
+                    <label for="upload-input" 
+                        class="bg-white/10 hover:bg-white/80 hover:text-purple-700 hover:scale-105 text-white px-3 py-3 rounded-xl transition-all duration-300 border border-white/20 flex items-center justify-between gap-1 cursor-pointer font-bold">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -569,15 +571,15 @@
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </g>
                         </svg>
-                        </svg>
                         Upload
-                    </button>
+                        <input id="upload-input" type="file" accept="image/*" class="hidden" />
+                    </label>
                 </div>
             </div>
 
-            <div id="right-side" class="w-full min-w-xs  flex flex-col gap-4">
+            <div id="right-side" class=" min-w-xs  flex flex-col gap-4">
                 <div class=" bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl text-white p-6 relative border border-white/10 ">
-                    <div class="flex justify-between items-start mb-6">
+                    <div class="flex items-start mb-6">
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-2 flex items-center space-x-3">
                                 <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
@@ -610,40 +612,32 @@
                                 </span>
                             </div>
                         </div>
-                        <button
-                            class="text-white top-1 right-1 transition-colors p-2 hover:bg-white/10 rounded-xl cursor-pointer hover:scale-110 active:scale-95"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-x w-5 h-5">
-                                <path d="M18 6 6 18"></path>
-                                <path d="m6 6 12 12"></path>
-                            </svg>
-                        </button>
+
                     </div>
 
                     <!-- Scanned Text Box -->
                     <div class="bg-black/20 rounded-2xl p-6 mb-6 border border-white/10">
-                        <p class="text-white/90 break-all font-mono text-sm leading-relaxed">
+                        <p id="scannedText" class="text-white/90 break-all font-mono text-sm leading-relaxed">
                             WIFI:T:WPA;S:MyNetwork;P:password123;H:false;
                         </p>
                     </div>
 
-
                     <!-- Action Buttons -->
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <button
+                        <button id="copy-btn"
                             class="flex items-center justify-center space-x-2 px-4 py-3 rounded-xl transition-all duration-300 bg-white/10 hover:bg-white/20 cursor-pointer text-white border border-white/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            <svg id="copy-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-copy w-4 h-4">
                                 <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
                                 <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
                             </svg>
-                            <span class="text-sm font-medium">Copy</span>
+                            <svg id="copied-svg" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracurrentColorerCarrier" stroke-linecurrentcap="round" stroke-linejoin="round"></g><g id="SVGRepo_icurrentColoronCarrier"> <path d="M4.89163 13.2687L9.16582 17.5427L18.7085 8" stroke="currentColor" stroke-width="2.5" stroke-linecurrentcap="round" stroke-linejoin="round"></path> </g></svg>
+                            <span id="copy-btn-text" class="text-sm font-medium">Copy</span>
                         </button>
 
-                        <button
-                            class=" flex items-center justify-center space-x-2 bg-white/10 hover:bg-white/20 text-white px-4 py-3 rounded-xl transition-all duration-300 cursor-pointer border border-white/20"><svg
+                        <button id="save-btn"
+                            class=" flex items-center justify-center space-x-2 bg-white/10 hover:bg-white/20 text-white px-4 py-3 rounded-xl transition-all duration-300 cursor-pointer border border-white/20 active:scale-95"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-download w-4 h-4">
@@ -654,7 +648,7 @@
                             <span class="text-sm font-medium">Save</span>
                         </button>
 
-                        <button
+                        <button id="open-btn"
                             class=" w-max flex items-center justify-center cursor-pointer bg-white/10 hover:bg-white/80 hover:text-purple-700 hover:scale-105 text-white px-3 py-3 rounded-xl transition-all duration-300 border border-white/20">
                             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                 mirror-in-rtl="true" fill="currentColor" class="mr-2">
@@ -670,6 +664,16 @@
 
 
                     </div>
+
+                    <button
+                            class="text-white absolute top-3 right-3 transition-colors p-2 hover:bg-white/10 rounded-xl cursor-pointer hover:scale-110 active:scale-95"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-x w-5 h-5">
+                                <path d="M18 6 6 18"></path>
+                                <path d="m6 6 12 12"></path>
+                            </svg>
+                        </button>
                 </div>
                 <div id="tips"
                     class="w-full mx-auto bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl text-white p-6 border border-white/10 mt-6">
@@ -684,9 +688,12 @@
 
         </main>
     </div>
+   
 <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="./general.js"></script>
 <script src="./generate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script src="./scan.js"></script>
 </body>
 
