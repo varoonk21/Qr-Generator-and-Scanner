@@ -1,66 +1,76 @@
-const reader = document.getElementById('reader');
+const video = document.getElementById('video');
+const cameraSelect = document.getElementById('camera-select');
 const cameraPlaceholder = document.getElementById('camera-placeholder');
 const cameraBox = document.getElementById('camera-box');
 const startBtn = document.getElementById('start-btn');
 const uploadBtn = document.getElementById('upload-input');
 const scannedText = document.getElementById('scannedText');
+const scannedTime = document.getElementById('date-time');
+
 const startSVG = document.getElementById('start-svg');
 const stopSVG = document.getElementById('stop-svg');
 const btnTextSpan = startBtn.querySelector('span'); // Get the text span
+
+
+const fileTag = document.getElementById('file-tag');
+const cameraTag = document.getElementById('camera-tag');
 const copyBtn = document.getElementById('copy-btn');
 const copybtnText = copyBtn.querySelector('span');
 const copySVG = document.getElementById('copy-svg');
 const copiedSVG = document.getElementById('copied-svg');
 const saveBtn = document.getElementById('save-btn');
 const openBtn = document.getElementById('open-btn');
-const scannedTime = document.getElementById('date-time');
 
-// function currentTime() {
-//     console.log(dayjs);
+const githubIcon = document.getElementById('github-icon');
+
+
+scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
+
+let qrScanner = new QrScanner(video, result => {
+
+    cameraTag.classList.remove('hidden');
+    fileTag.classList.add('hidden');
+    scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
+    console.log(dayjs().format("DD-MM-YYYY hh:mm:ss A"));
     
-// }
+    scannedText.textContent = result.data || result;
+    
 
-const html5QrCode = new Html5Qrcode("reader");
+    const svg = qrScanner.$overlay?.querySelector('svg.scan-region-highlight-svg');
+    
+            if (svg) {
+              svg.classList.add('success');
+              setTimeout(() => svg.classList.remove('success'), 2000);
+            }
+  }, 
+  { returnDetailedScanResult: true,
+        highlightScanRegion: true
+   
+      });
 
-let isScanning = false;
-let currentCameraId = null;
+  let scanning = false;
 
-function startCamera() {
-    return Html5Qrcode.getCameras().then(devices => {
-        if (devices && devices.length) {
-            currentCameraId = devices[0].id;
-            reader.classList.remove("hidden");
+  // Load and list cameras
+    async function loadCameras() {
+      const cameras = await QrScanner.listCameras(true);
+      cameraSelect.innerHTML = '';
+      cameras.forEach(camera => {
+        const option = document.createElement('option');
+        option.value = camera.id;
+        option.text = camera.label || `Camera ${cameraSelect.length + 1}`;
+        cameraSelect.appendChild(option);
+      });
+    }
 
-            return html5QrCode.start(
-                currentCameraId,
-                {
-                    fps: 10,
-                    qrbox: { width: 150, height: 150 }
-                },
-                (decodedText, decodedResult) => {
-
-                    console.log("Decoded:", decodedText);
-                    scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
-                    scannedText.innerText = decodedText;
-                },
-                (errorMessage) => {
-                    console.warn("Scan error:", errorMessage);
-                }
-            );
-        }
-        throw new Error("No cameras found.");
+    // Handle camera change
+    cameraSelect.addEventListener('change', async () => {
+      const selectedCamera = cameraSelect.value;
+      if (scanning) {
+        await qrScanner.setCamera(selectedCamera);
+      }
     });
-}
 
-function stopCamera() {
-    return html5QrCode.stop().then(() => {
-        reader.classList.add("hidden");
-        cameraPlaceholder.classList.remove("hidden");
-        cameraBox.classList.add("aspect-square");
-    });
-}
-
-function updateButtonUI(isScanning) {
+    function updateButtonUI(isScanning) {
     if (isScanning) {
         // Show stop icon and state
         startSVG.classList.add("hidden");
@@ -78,51 +88,51 @@ function updateButtonUI(isScanning) {
     }
 }
 
-startBtn.addEventListener('click', async () => {
-    try {
-        if (!isScanning) {
-            // Start scanning
-            cameraPlaceholder.classList.add("hidden");
-            cameraBox.classList.remove("aspect-square");
-            
-            await startCamera();
-            isScanning = true;
-            updateButtonUI(true);
-        } else {
-            // Stop scanning
-            await stopCamera();
-            isScanning = false;
-            updateButtonUI(false);
-        }
-    } catch (err) {
-        console.error(isScanning ? "Error stopping camera:" : "Error starting camera:", err);
-        if (!isScanning) {
-            alert(`Failed to start camera: ${err.message}`);
-        }
-    }
+// Toggle scanning
+    startBtn.addEventListener('click', async () => {
+  if (scanning) {
+    await qrScanner.stop();
+    cameraPlaceholder.style.display = 'flex';
+    video.classList.add('hidden');
+    scanning = false;
+    updateButtonUI(scanning);
+  } else {
+    await qrScanner.start();
+    await qrScanner.setCamera(cameraSelect.value);
+    cameraPlaceholder.style.display = 'none';
+    video.classList.remove('hidden');
+    scanning = true;
+    updateButtonUI(scanning);
+  }
 });
 
-uploadBtn.addEventListener('change', (e) => {
-  if (!e.target.files || e.target.files.length === 0) return;
+// Image file upload handler
+    
+      uploadBtn.addEventListener('change', async e => {
+      const file = e.target.files[0];
+      if (!file) return;
 
-  const imageFile = e.target.files[0];
+      const result = await QrScanner.scanImage(file, { returnDetailedScanResult: true })
+        .catch(err => {
+          scannedText.textContent = "❌ Failed to scan image. (Try Again)";
+          console.error(err);
+        });
 
-  html5QrCode.scanFile(imageFile, true)
-    .then(decodedText => {
-      console.log("Decoded text:", decodedText);
-      scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
-      scannedText.innerText = decodedText;
-    })
-    .catch(err => {
-      console.error(`Error scanning file. Reason: ${err}`);
-      scannedText.innerText = "❌ No QR code found in the image.";
+      if (result?.data) {
+        cameraTag.classList.add('hidden');
+        fileTag.classList.remove('hidden');
+        scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
+        scannedText.textContent = result.data;
+        if (isValidUrl(result.data)) {
+            openBtn.classList.add('flex');
+        }
+      }
+      uploadBtn.value = "";
     });
 
-  // ✅ Optional: reset input so same file can be selected again
-  uploadBtn.value = "";
-});
+    
 
-
+//copy button
 copyBtn.addEventListener('click', ()=>{
     setTimeout(() => {
         copiedSVG.classList.add("hidden");
@@ -132,17 +142,17 @@ copyBtn.addEventListener('click', ()=>{
         copyBtn.classList.add( "bg-white/10","border-white/20", "text-white", "hover:bg-white/20");
     }, 1500);
 
+        copiedSVG.classList.remove("hidden");
+        copySVG.classList.add("hidden");
+        copybtnText.innerText = "Copied!";
+        copyBtn.classList.add( "bg-green-500/20","border-green-500/30", "text-green-300","hover:bg-green-500/20");
+        copyBtn.classList.remove( "bg-white/10","border-white/20", "text-white", "hover:bg-white/20");
+        console.log(scannedText.innerText);
 
-copiedSVG.classList.remove("hidden");
-copySVG.classList.add("hidden");
-copybtnText.innerText = "Copied!";
-copyBtn.classList.add( "bg-green-500/20","border-green-500/30", "text-green-300","hover:bg-green-500/20");
-copyBtn.classList.remove( "bg-white/10","border-white/20", "text-white", "hover:bg-white/20");
-console.log(scannedText.innerText);
+        navigator.clipboard.writeText(scannedText.innerText);
+    });
 
-navigator.clipboard.writeText(scannedText.innerText);
-});
-
+//Save Button
 saveBtn.addEventListener('click', ()=>{
    saveTextAsFile(scannedText.innerText); 
 });
@@ -170,6 +180,7 @@ openBtn.addEventListener('click', () => {
         rawText = "https://" + rawText;
     }
     if (isValidUrl(rawText)) {
+        
         window.open(rawText, "_blank");
     } else {
         
@@ -186,11 +197,9 @@ function isValidUrl(input) {
     }
 }
 
-// Clean up on page unload
-window.addEventListener('beforeunload', () => {
-    if (isScanning) {
-        html5QrCode.stop().catch(err => {
-            console.error("Cleanup error:", err);
-        });
-    }
-});
+// Init
+    loadCameras();
+
+    githubIcon.addEventListener('click', ()=>{
+         window.open("https://github.com/varoonk21",  "_blank");
+    });

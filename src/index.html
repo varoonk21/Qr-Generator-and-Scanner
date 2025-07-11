@@ -14,7 +14,10 @@
 
 </head>
 
-<body class="min-h-screen w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 text-white font-Inter ">
+<body class="min-h-screen w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 text-white font-Inter relative">
+    <div id="github-icon" class="absolute w-8 h-8 top-1 right-4 cursor-pointer active:scale-95">
+        <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>github [#142]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="currentColor"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#142]"> </path> </g> </g> </g> </g></svg>
+    </div>
     <div class="main-container flex items-center justify-center flex-col mt-4 px-4 sm:px-6">
         <!-- heading -->
         <div id="logo"
@@ -98,7 +101,7 @@
                     </g>
                 </svg>Generator</button>
             <button id="scan-btn"
-                class=" text-white rounded-xl px-4 py-2 flex items-center cursor-pointer hover:bg-white/20">
+                class=" text-white rounded-xl px-4 py-2 flex items-center cursor-pointer hover:bg-white/10">
                 <svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_429_11130)">
@@ -513,31 +516,43 @@
         <!-- Scanner containner -->
         <main id="scanner-container"
             class="m-4 p-4 sm:p-6 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 items-center gap-6 mx-auto hidden">
+
+            <!-- left side -->
             <div id="left-side" class=" flex flex-col items-center justify-center ">
-                <div class="text-center mb-2">
+                <!-- <div class="text-center mb-2">
                     <h2 class="text-2xl font-bold mb-1">Scan QR Code</h2>
                     <p class="text-sm text-gray-300">Position QR code in the center of the frame</p>
+                </div> -->
+
+                <div class="mb-3 flex flex-col items-center">
+                    <label class="items-center text-2xl font-bold mb-1 text-gray-100 ">Select Camera </label>
+                    <select id="camera-select"
+                        class="w-full bg-white/10 text-white hover:text-purple-900 font-bold rounded-lg px-4 py-2.5 focus:outline-none cursor-pointer focus:ring-2 focus:ring-purple-500 border border-white/30 backdrop-blur-sm transition-all duration-200 hover:bg-white/70">
+                        <!-- <option value="png">Camera 1 front camera</option>
+                        <option value="jpg">Camera 1 front camera</option>
+                        <option value="svg">Camera 1 front camera</option> -->
+                    </select>
                 </div>
 
                 <!-- Camera Box -->
                 <div id="camera-box"
-                    class="w-full max-w-7xl aspect-square bg-black/30 rounded-2xl border-2 border-dashed border-white/20 flex items-center justify-center relative overflow-hidden backdrop-blur-sm">
-                    <div id="camera-placeholder" class="flex flex-col items-center justify-center text-gray-300 ">
+                    class="w-full aspect-square bg-black/10 rounded-2xl border-2 border-dashed border-white/20 flex items-center justify-center relative overflow-hidden backdrop-blur-sm">
+
+                    <!-- Placeholder shown before scanning -->
+                    <div id="camera-placeholder" class="absolute inset-0 z-10 flex flex-col items-center justify-center text-gray-300 bg-black/40 backdrop-blur-sm">
                         <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14.2792 3C15.1401 3 15.9044 3.55086 16.1766 4.36754L16.7208 6H19C20.6569 6 22 7.34315 22 9V17C22 18.6569 20.6569 20 19 20H5C3.34315 20 2 18.6569 2 17V9C2 7.34315 3.34315 6 5 6H7.27924L7.82339 4.36754C8.09562 3.55086 8.8599 3 9.72076 3H14.2792ZM14.2792 5H9.72076L9.17661 6.63246C8.90438 7.44914 8.1401 8 7.27924 8H5C4.44772 8 4 8.44772 4 9V17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17V9C20 8.44772 19.5523 8 19 8H16.7208C15.8599 8 15.0956 7.44914 14.8234 6.63246L14.2792 5ZM9.5 12.5C9.5 11.1193 10.6193 10 12 10C13.3807 10 14.5 11.1193 14.5 12.5C14.5 13.8807 13.3807 15 12 15C10.6193 15 9.5 13.8807 9.5 12.5ZM12 8C9.51472 8 7.5 10.0147 7.5 12.5C7.5 14.9853 9.51472 17 12 17C14.4853 17 16.5 14.9853 16.5 12.5C16.5 10.0147 14.4853 8 12 8Z"
-                                    fill="currentColor"></path>
-                            </g>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M14.2792 3C15.1401 3 15.9044 3.55086 16.1766 4.36754L16.7208 6H19C20.6569 6 22 7.34315 22 9V17C22 18.6569 20.6569 20 19 20H5C3.34315 20 2 18.6569 2 17V9C2 7.34315 3.34315 6 5 6H7.27924L7.82339 4.36754C8.09562 3.55086 8.8599 3 9.72076 3H14.2792ZM14.2792 5H9.72076L9.17661 6.63246C8.90438 7.44914 8.1401 8 7.27924 8H5C4.44772 8 4 8.44772 4 9V17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17V9C20 8.44772 19.5523 8 19 8H16.7208C15.8599 8 15.0956 7.44914 14.8234 6.63246L14.2792 5ZM9.5 12.5C9.5 11.1193 10.6193 10 12 10C13.3807 10 14.5 11.1193 14.5 12.5C14.5 13.8807 13.3807 15 12 15C10.6193 15 9.5 13.8807 9.5 12.5ZM12 8C9.51472 8 7.5 10.0147 7.5 12.5C7.5 14.9853 9.51472 17 12 17C14.4853 17 16.5 14.9853 16.5 12.5C16.5 10.0147 14.4853 8 12 8Z"
+                            fill="currentColor"></path>
                         </svg>
-                        <span class="text-lg font-bold">Camera Ready</span>
+                        <span class="text-lg font-bold mt-2">Camera Ready</span>
                         <span class="text-sm">Click start to begin scanning</span>
                     </div>
 
-                    <!-- QR Scanner will replace this div -->
-                    <div id="reader" class="absolute inset-0 z-10 w-full h-full rounded-xl"></div>
+                    <!-- Video stream -->
+                    <video id="video" muted playsinline
+                        class="absolute inset-0 w-full h-full object-cover z-0 rounded-2xl"></video>
+
                 </div>
 
                 <!-- Buttons -->
@@ -578,7 +593,7 @@
             </div>
 
             <div id="right-side" class=" min-w-xs  flex flex-col gap-4">
-                <div class=" bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl text-white p-6 relative border border-white/10 ">
+                <div id="result-box" class=" bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl text-white p-6 relative border border-white/10 ">
                     <div class="flex items-start mb-6">
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-2 flex items-center space-x-3">
@@ -594,7 +609,7 @@
                                         <circle cx="12" cy="12" r="10"></circle>
                                         <polyline points="12 6 12 12 16 14"></polyline>
                                     </svg>
-                                    <span id="date-time">7/6/2025, 8:32:23 PM</span>
+                                    <span id="date-time"></span>
                                 </span>
                                 <span id="camera-tag" class="flex items-center space-x-2 bg-white/10 px-3 py-1 rounded-full"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -649,7 +664,7 @@
                         </button>
 
                         <button id="open-btn"
-                            class=" w-max flex items-center justify-center cursor-pointer bg-white/10 hover:bg-white/80 hover:text-purple-700 hover:scale-105 text-white px-3 py-3 rounded-xl transition-all duration-300 border border-white/20">
+                            class=" hidden w-full  items-center justify-center cursor-pointer bg-white/10 hover:bg-white/80 hover:text-purple-700 hover:scale-105 text-white px-3 py-3 rounded-xl transition-all duration-300 border border-white/20">
                             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                 mirror-in-rtl="true" fill="currentColor" class="mr-2">
                                 <path fill="currentColor"
@@ -665,7 +680,7 @@
 
                     </div>
 
-                    <button
+                    <!-- <button
                             class="text-white absolute top-3 right-3 transition-colors p-2 hover:bg-white/10 rounded-xl cursor-pointer hover:scale-110 active:scale-95"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -673,7 +688,7 @@
                                 <path d="M18 6 6 18"></path>
                                 <path d="m6 6 12 12"></path>
                             </svg>
-                        </button>
+                        </button> -->
                 </div>
                 <div id="tips"
                     class="w-full mx-auto bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl text-white p-6 border border-white/10 mt-6">
@@ -690,9 +705,9 @@
     </div>
    
 <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="./general.js"></script>
 <script src="./generate.js"></script>
+<script src="https://unpkg.com/qr-scanner@1.4.2/qr-scanner.legacy.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script src="./scan.js"></script>
 </body>
