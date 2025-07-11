@@ -31,8 +31,10 @@ let qrScanner = new QrScanner(video, result => {
     cameraTag.classList.remove('hidden');
     fileTag.classList.add('hidden');
     scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
-    console.log(dayjs().format("DD-MM-YYYY hh:mm:ss A"));
-    
+    if (isValidUrl(result.data)) {
+            openBtn.classList.replace('hidden', 'flex');
+        }
+      
     scannedText.textContent = result.data || result;
     
 
@@ -124,7 +126,7 @@ let qrScanner = new QrScanner(video, result => {
         scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
         scannedText.textContent = result.data;
         if (isValidUrl(result.data)) {
-            openBtn.classList.add('flex');
+            openBtn.classList.replace('hidden', 'flex');
         }
       }
       uploadBtn.value = "";
