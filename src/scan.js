@@ -26,31 +26,43 @@ const githubIcon = document.getElementById('github-icon');
 
 scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
 
-let qrScanner = new QrScanner(video, result => {
+let qrScanner = null;
+let scanning = false;
+let scannerInitialized = false;
 
+async function initScanner() {
+  if (scannerInitialized) return;
+
+  qrScanner = new QrScanner(video, result => {
     cameraTag.classList.remove('hidden');
     fileTag.classList.add('hidden');
     scannedTime.innerText = dayjs().format("DD-MM-YYYY hh:mm:ss A");
     if (isValidUrl(result.data)) {
             openBtn.classList.replace('hidden', 'flex');
         }
-      
-    scannedText.textContent = result.data || result;
     
+    scannedText.textContent = result.data || result;
 
     const svg = qrScanner.$overlay?.querySelector('svg.scan-region-highlight-svg');
     
             if (svg) {
               svg.classList.add('success');
-              setTimeout(() => svg.classList.remove('success'), 2000);
+              setTimeout(() => svg.classList.remove('success'), 1000);
             }
-  }, 
-  { returnDetailedScanResult: true,
-        highlightScanRegion: true
-   
-      });
+  }, {
+    returnDetailedScanResult: true,
+    highlightScanRegion: true
+  });
 
-  let scanning = false;
+  await loadCameras(); // Load available cameras
+  scannerInitialized = true;
+}
+
+// 👂 Listen for custom event from general.js
+window.addEventListener('init-scanner', async () => {
+  await initScanner(); // Delay camera setup until scanner tab is clicked
+});
+
 
   // Load and list cameras
     async function loadCameras() {
@@ -199,8 +211,6 @@ function isValidUrl(input) {
     }
 }
 
-// Init
-    loadCameras();
 
     githubIcon.addEventListener('click', ()=>{
          window.open("https://github.com/varoonk21",  "_blank");

@@ -14,6 +14,8 @@ scanBtn.addEventListener('click', ()=>{
     generateBtn.classList.remove('bg-white');
     generateBtn.classList.add('hover:bg-white/10');
     generateBtn.classList.replace('text-black', 'text-white');
+
+    window.dispatchEvent(new Event('init-scanner'));
 });
 generateBtn.addEventListener('click', ()=>{
     generateContainer.classList.remove("hidden");
